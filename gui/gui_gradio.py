@@ -11,7 +11,7 @@ from shortGPT.config.api_db import ApiKeyManager
 class ShortGptUI(AbstractBaseUI):
     '''Class for the GUI. This class is responsible for creating the UI and launching the server.'''
 
-    def __init__(self, colab=False, Pexel_token="", OpenAI_token="", ElevenLab_token="")):
+    def __init__(self, colab=False, Pexel_token="", OpenAI_token="", ElevenLab_token=""):
         super().__init__(ui_name='gradio_shortgpt')        
         self.colab = colab
         ApiKeyManager.set_api_key('ELEVEN LABS', ElevenLab_token)
