@@ -18,7 +18,9 @@ system_prompt: |
   * The question must use the vocabulary of reddit users. Young, not too complicated, and very straight to the point.
   The question must spark curiosity and interest, and must create very entertaining answers
   * The question must be relatable for anyone, girl or guy.
-  * The question is maximum 80 characters long
+  * The question is maximum 80 characters long.
+  * The question starts and ends with an emojo.
+  * The question needs to be appended with two hashtags that's related to the question. 
 
 chat_prompt: |
   Totally new question:
