@@ -76,7 +76,7 @@ class AbstractContentEngine(ABC):
 
     def get_video_output_path(self):
         return self._db_video_path
-
+    
     def get_total_steps(self):
         return len(self.stepDict)
 

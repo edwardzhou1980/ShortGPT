@@ -53,7 +53,17 @@ class RedditShortCreator:
                     print(f"Making short {i+1} at step {step_num} - {step_info}")
 
                 video_path = shortEngine.get_video_output_path()
-                shutil.copy(video_path, self._target_folder)
+                if os.path.exists(video_path):
+                    shutil.move(video_path, self._target_folder)
+                    if video_path.endswith(".mp4"):
+                        metadata_filename = video_path[:-4] + ".txt"
+                        if os.path.exists(metadata_filename):
+                            shutil.move(metadata_filename, self._target_folder)
+                        else:
+                            print(f"Youtube meta data file '{metadata_filename}' doesn't exist!")
+                else:
+                    print(f"Youtube video  file '{video_path}' doesn't exist!")
+
         except Exception as e:
             traceback_str = ''.join(traceback.format_tb(e.__traceback__))
             error_name = type(e).__name__.capitalize() + " : " + f"{e.args[0]}"
