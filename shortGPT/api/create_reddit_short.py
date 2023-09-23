@@ -64,6 +64,7 @@ class RedditShortCreator:
                 for step_num, step_info in shortEngine.makeContent():
                     print(f"Making short {i+1} at step {step_num} - {step_info}")
 
+                end_time = time.time()
                 execution_time_seconds = end_time - start_time  # compute the difference in seconds
                 execution_time_minutes = execution_time_seconds / 60  # convert the difference to minutes
                 print(f"Execution time: {execution_time_minutes:.2f} minutes")
