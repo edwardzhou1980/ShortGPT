@@ -2,6 +2,7 @@ import shutil
 import os
 import random
 import traceback
+import time
 
 from shortGPT.engine.reddit_short_engine import RedditShortEngine
 from gui.asset_components import AssetComponentsUtils
@@ -13,6 +14,7 @@ from shortGPT.config.api_db import ApiKeyManager
 from shortGPT.config.languages import (EDGE_TTS_VOICENAME_MAPPING,
                                        ELEVEN_SUPPORTED_LANGUAGES, Language)
 from shortGPT.api_utils.eleven_api import ElevenLabsAPI
+from shortGPT.config.asset_db import AssetDatabase
 
 class RedditShortCreator:
 
@@ -36,6 +38,11 @@ class RedditShortCreator:
             api_key = ApiKeyManager.get_api_key('ELEVEN LABS')
             voices = list(ElevenLabsAPI(api_key).get_voices().keys())
             voice = random.choice(voices)
+            numShorts =self._number
+
+            df = AssetDatabase.get_df()
+            background_videos = list(df.loc['background video' == df['type']]['name'])
+            background_musics = list(df.loc['background music' == df['type']]['name'])
 
             tts_engine = self._tts_engine
             if tts_engine == AssetComponentsUtils.ELEVEN_TTS:
@@ -45,12 +52,21 @@ class RedditShortCreator:
                 language = Language("English".lower().capitalize())
                 voice_module = EdgeTTSVoiceModule(EDGE_TTS_VOICENAME_MAPPING[language]['male'])
 
-            for i in range(self._number):
-                shortEngine = RedditShortEngine(voice_module, background_video_name="Minecraft jumping circuit", background_music_name="Music dj quads", num_images=25, watermark=None, language=language)
+            for i in range(numShorts):
+                start_time = time.time()
+
+                shortEngine = RedditShortEngine(voice_module, 
+                    background_video_name=random.choice(background_videos), 
+                    background_music_name=random.choice(background_musics), 
+                    num_images=25, watermark=None, language=language)
                 num_steps = shortEngine.get_total_steps()
 
                 for step_num, step_info in shortEngine.makeContent():
                     print(f"Making short {i+1} at step {step_num} - {step_info}")
+
+                execution_time_seconds = end_time - start_time  # compute the difference in seconds
+                execution_time_minutes = execution_time_seconds / 60  # convert the difference to minutes
+                print(f"Execution time: {execution_time_minutes:.2f} minutes")
 
                 video_path = shortEngine.get_video_output_path()
                 if os.path.exists(video_path):
