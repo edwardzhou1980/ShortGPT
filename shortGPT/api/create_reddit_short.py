@@ -20,7 +20,7 @@ class RedditShortCreator:
 
     def __init__(self, number=1, target_google_drive_dir="", tts_engine = AssetComponentsUtils.ELEVEN_TTS, Pexel_token="", OpenAI_token="", ElevenLab_token=""):
         #define how many shorts need to be created
-        self._number = number
+        self._number = int(number)
         self._target_folder = '/content/drive/MyDrive/{}/'.format(target_google_drive_dir)
         _target_folder = self._target_folder 
         if os.path.exists(_target_folder) and os.path.isdir(_target_folder):        
