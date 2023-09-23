@@ -1,4 +1,3 @@
-from google.colab import drive 
 import shutil 
 import os
 import random
@@ -22,7 +21,6 @@ class RedditShortCreator:
         self._number = number
         self._target_folder = '/content/drive/MyDrive/{}/'.format(target_google_drive_dir)
         _target_folder = self._target_folder 
-        drive.mount('/content/drive', force_remount=True)
         if os.path.exists(_target_folder) and os.path.isdir(_target_folder):        
             print(f"{_target_folder} exists and is a directory.")
         else:
