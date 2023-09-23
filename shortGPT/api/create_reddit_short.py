@@ -33,6 +33,7 @@ class RedditShortCreator:
 
     def start(self):
         try:
+            api_key = ApiKeyManager.get_api_key('ELEVEN LABS')
             voices = list(ElevenLabsAPI(api_key).get_voices().keys())
             voice = random.choice(voices)
 
@@ -56,6 +57,7 @@ class RedditShortCreator:
         except Exception as e:
             traceback_str = ''.join(traceback.format_tb(e.__traceback__))
             error_name = type(e).__name__.capitalize() + " : " + f"{e.args[0]}"
-            print("Error", traceback_str)
+            print(f"Error: {error_name}")
+            print("Error Trackback", traceback_str)
             
             
