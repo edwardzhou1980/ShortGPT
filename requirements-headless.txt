@@ -1,0 +1,21 @@
+pyyaml
+pandas
+gradio==3.38.0
+ffmpeg-python
+python-dotenv
+openai
+tiktoken
+tinydb
+tinymongo
+proglog
+yt-dlp
+torch
+torchaudio
+### whisper timestamped 
+whisper-timestamped
+protobuf==3.20.0
+pillow==9.3.0
+moviepy==1.0.3
+progress
+questionary
+edge-tts

@@ -26,3 +26,4 @@ setup
 test.ipynb
 .venv/
 MANIFEST.in
+myvenv/*

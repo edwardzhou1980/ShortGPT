@@ -18,16 +18,9 @@ from shortGPT.config.asset_db import AssetDatabase
 
 class RedditShortCreator:
 
-    def __init__(self, number=1, target_google_drive_dir="", tts_engine = AssetComponentsUtils.ELEVEN_TTS, Pexel_token="", OpenAI_token="", ElevenLab_token=""):
+    def __init__(self, number=1, tts_engine = AssetComponentsUtils.ELEVEN_TTS, Pexel_token="", OpenAI_token="", ElevenLab_token=""):
         #define how many shorts need to be created
         self._number = int(number)
-        self._target_folder = '/content/drive/MyDrive/{}/'.format(target_google_drive_dir)
-        _target_folder = self._target_folder 
-        if os.path.exists(_target_folder) and os.path.isdir(_target_folder):        
-            print(f"{_target_folder} exists and is a directory.")
-        else:
-            print("{} does not exist, will create it.".format(_target_folder))
-            os.mkdir(_target_folder)
         self._tts_engine = tts_engine
         ApiKeyManager.set_api_key('ELEVEN LABS', ElevenLab_token)
         ApiKeyManager.set_api_key('OPENAI', OpenAI_token)
@@ -70,17 +63,6 @@ class RedditShortCreator:
                 print(f"Execution time: {execution_time_minutes:.2f} minutes")
 
                 video_path = shortEngine.get_video_output_path()
-                if os.path.exists(video_path):
-                    shutil.move(video_path, self._target_folder)
-                    if video_path.endswith(".mp4"):
-                        metadata_filename = video_path[:-4] + ".txt"
-                        if os.path.exists(metadata_filename):
-                            shutil.move(metadata_filename, self._target_folder)
-                        else:
-                            print(f"Youtube meta data file '{metadata_filename}' doesn't exist!")
-                else:
-                    print(f"Youtube video  file '{video_path}' doesn't exist!")
-
         except Exception as e:
             traceback_str = ''.join(traceback.format_tb(e.__traceback__))
             error_name = type(e).__name__.capitalize() + " : " + f"{e.args[0]}"
